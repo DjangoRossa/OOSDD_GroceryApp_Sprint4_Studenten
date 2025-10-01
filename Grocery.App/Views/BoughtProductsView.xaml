@@ -34,6 +34,7 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Client}" Grid.Column="0" HorizontalOptions="Center"/>
                             <!-- Toon hier de naam van de Client naam van de boodschappenlijst -->
                         </Grid>
                     </DataTemplate>

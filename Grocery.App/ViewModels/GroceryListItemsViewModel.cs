@@ -1,11 +1,12 @@
-﻿using CommunityToolkit.Maui.Alerts;
+﻿using System.Collections.ObjectModel;
+using System.Text.Json;
+using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Grocery.App.Views;
 using Grocery.Core.Interfaces.Services;
 using Grocery.Core.Models;
-using System.Collections.ObjectModel;
-using System.Text.Json;
+using Grocery.Core.Services;
 
 namespace Grocery.App.ViewModels
 {
@@ -15,6 +16,7 @@ namespace Grocery.App.ViewModels
         private readonly IGroceryListItemsService _groceryListItemsService;
         private readonly IProductService _productService;
         private readonly IFileSaverService _fileSaverService;
+        private readonly GlobalViewModel _globalViewModel;
         private string searchText = "";
 
         public ObservableCollection<GroceryListItem> MyGroceryListItems { get; set; } = [];
@@ -24,12 +26,16 @@ namespace Grocery.App.ViewModels
         GroceryList groceryList = new(0, "None", DateOnly.MinValue, "", 0);
         [ObservableProperty]
         string myMessage;
+        [ObservableProperty]
+        Client client;
 
-        public GroceryListItemsViewModel(IGroceryListItemsService groceryListItemsService, IProductService productService, IFileSaverService fileSaverService)
+        public GroceryListItemsViewModel(IGroceryListItemsService groceryListItemsService, IProductService productService, IFileSaverService fileSaverService, GlobalViewModel globalViewModel)
         {
             _groceryListItemsService = groceryListItemsService;
             _productService = productService;
             _fileSaverService = fileSaverService;
+            _globalViewModel = globalViewModel;
+            client = _globalViewModel.Client;
             Load(groceryList.Id);
         }
 
